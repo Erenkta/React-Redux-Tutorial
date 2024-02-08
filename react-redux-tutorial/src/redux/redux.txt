@@ -1,0 +1,36 @@
+Store => State'leri tuttuğumuz yer
+
+Actions => Redux'a state'lere ne gibi işlemler yapacağımızı belirttiğimiz yer. {type: "...",payload:"..."} gibi iki değişken barındırır. 
+Type required iken payload için böyle bir durum söz konusu değildir. Type genel olarak o action'un bize ne yaptığı hakkında bilgi verir. 
+-const increment = {type:"INCREMENT",payload:1} gibi
+-burada const incrementByAmount = {type:"INCREMENT_BY_AMOUNT", payload:5 } gibi bir action tanımlayabiliriz. Bu işlem bize bir arttırma yapacağımız ve arttırma miktarının da payload'daki değer
+yani 5 olacağını gösterir
+
+Reducers=> Action'u uygulamak için kullanılır. Redux store içindeki state'leri direkt değiştirmezler. Böyle bir durum söz konusu olursa React redux çalışmaz. State'i kopyalar , değişikliği yapar
+sonra da üstüne yazar.
+
+Adımlar :
+1- store'u oluştur   // npm install react redux  @reduxjs/toolkit react-redux ile indirmeyi yap
+2- main.jsx'e store'u ekle
+3-Slice oluştur. Slice aslında state olarak düşünülebilir. İçinde reducer belirleme, initial state , state belirleme gibi bir takım işlemler yapılıyor.
+4-import counterReducer from "./counter/counterSlice"  ile store'a counter için olan reducer'ı import ettik
+5-Şimdi oluşturduğumuz Slice'a giderek reducer'ı tanımlayabiliriz
+6-Slicer sayesinde actionları da içerinden export ettik ve bu kadar.
+
+
+Kullanım : 
+-const count = useSelector((state) => state.counter.value) ile istediğimiz state'in istediğimiz verisine ulaşabiliriz
+burada dikkat edilmesi gereken şey state.(slicer'da name alanına yazdığımız yer).(istenen değer) şeklinde bir yazımı var
+
+-const dispatch = useDispatch(); ile actionları dispatch edebilmek için bir değişken oluşturuyoruz
+React ile redux'un iletişimi için dispatch gereklidir
+
+-dispatch(action()) ile action'u gerçekleştirebiliriz
+action'ları slice içinde tanımladık oradan tekrar göz gezdirebilirsin
+
+-dispatch(incrementByAmount(10)) ile aslında biz bir action yollamış sayıldık ve action'un payload'ına da 10 verdik. Bu şekilde yorumlanabilir
+
+-async bir action oluşturmak için redux thunk'dan yardım alıyoruz
+-async action'un reducer'ı için de extraReducers dediğimiz kavramı kullanıyoruz
+
+Son kısımlarda async fonksiyon ile işlemlerimizi yaptık
